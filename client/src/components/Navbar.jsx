@@ -1,77 +1,115 @@
 import React from 'react';
-import { Heart, Activity, Database, CheckCircle2, AlertCircle, PhoneCall } from 'lucide-react';
+import { Heart, ShieldCheck, User, LogOut, LayoutDashboard, Bell, PhoneCall } from 'lucide-react';
 
-export default function Navbar({ health, onOpenInquiries, inquiryCount }) {
-  const isDbConnected = health?.database?.isConnected;
-
+export default function Navbar({
+  currentUser,
+  onOpenAuth,
+  onLogout,
+  currentView,
+  onViewChange,
+  unreadCount,
+  onOpenNotifications,
+  onOpenSOS,
+}) {
   return (
-    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-slate-200/80 transition-all">
+    <header className="sticky top-8 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-3">
-            <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-sky-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+          {/* Brand Logo */}
+          <div
+            onClick={() => onViewChange('public')}
+            className="flex items-center gap-3 cursor-pointer select-none"
+          >
+            <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-sky-600 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
               <Heart className="h-6 w-6 fill-white" />
             </div>
             <div>
-              <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+              <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
                 Apno<span className="text-sky-600">Care</span>
               </span>
-              <p className="text-[11px] text-slate-500 font-medium -mt-1 tracking-wide uppercase">
-                Home Health & Nursing
+              <p className="text-[11px] text-slate-500 font-semibold -mt-1 tracking-wider uppercase">
+                Remote Family Healthcare
               </p>
             </div>
           </div>
 
-          {/* Center Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#services" className="hover:text-sky-600 transition-colors">Our Services</a>
-            <a href="#about" className="hover:text-sky-600 transition-colors">Why ApnoCare</a>
-            <a href="#book" className="hover:text-sky-600 transition-colors">Request Caregiver</a>
+          {/* Center Links (Only on public view) */}
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
             <button
-              onClick={onOpenInquiries}
-              className="hover:text-sky-600 transition-colors flex items-center gap-1.5 cursor-pointer"
+              onClick={() => onViewChange('public')}
+              className={`hover:text-sky-600 transition-colors cursor-pointer ${currentView === 'public' ? 'text-sky-600' : ''}`}
             >
-              <span>Recent Inquiries</span>
-              {inquiryCount > 0 && (
-                <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white bg-sky-600 rounded-full">
-                  {inquiryCount}
-                </span>
-              )}
+              Overview
             </button>
+            <a href="#how-it-works" className="hover:text-sky-600 transition-colors">
+              How It Works
+            </a>
+            <a href="#services" className="hover:text-sky-600 transition-colors">
+              Services
+            </a>
+            <a href="#pricing" className="hover:text-sky-600 transition-colors">
+              Pricing
+            </a>
+            <a href="#trust" className="hover:text-sky-600 transition-colors">
+              Trust & Safety
+            </a>
+            <a href="#waitlist" className="hover:text-sky-600 transition-colors">
+              Cities Covered
+            </a>
+            <a href="#faq" className="hover:text-sky-600 transition-colors">
+              FAQ
+            </a>
           </nav>
 
-          {/* Right Status & Contact CTA */}
-          <div className="flex items-center gap-4">
-            {/* MongoDB Atlas Status indicator */}
-            <div
-              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                isDbConnected
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                  : 'bg-amber-50 text-amber-700 border-amber-200'
-              }`}
-              title={
-                isDbConnected
-                  ? `MongoDB Atlas: Connected (${health?.database?.name || 'apnocare'})`
-                  : 'MongoDB Atlas: Pending credentials in server/.env'
-              }
-            >
-              <Database className="w-3.5 h-3.5" />
-              <span>Atlas: {isDbConnected ? 'Connected' : 'Setup Required'}</span>
-              {isDbConnected ? (
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              ) : (
-                <AlertCircle className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-              )}
-            </div>
+          {/* Right Portal & Auth Buttons */}
+          <div className="flex items-center gap-3">
+            {currentUser ? (
+              <div className="flex items-center gap-2.5">
+                <button
+                  onClick={() => onViewChange('dashboard')}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    currentView === 'dashboard'
+                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/20'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+                  }`}
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  <span>
+                    {currentUser.role === 'CUSTOMER' && 'Family Dashboard'}
+                    {currentUser.role === 'PATIENT' && 'Parent Home'}
+                    {currentUser.role === 'REPRESENTATIVE' && 'Rep Tasks'}
+                    {currentUser.role === 'ADMIN' && 'Admin Console'}
+                  </span>
+                </button>
 
-            <a
-              href="#book"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white text-sm font-semibold shadow-md shadow-sky-600/20 hover:shadow-lg transition-all"
-            >
-              <PhoneCall className="w-4 h-4" />
-              <span>Book a Caregiver</span>
-            </a>
+                <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-slate-200 text-xs">
+                  <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center font-bold text-slate-700">
+                    {currentUser.avatar ? (
+                      <img src={currentUser.avatar} alt={currentUser.name} className="w-full h-full object-cover" />
+                    ) : (
+                      currentUser.name.charAt(0)
+                    )}
+                  </div>
+                  <span className="font-bold text-slate-800 hidden md:inline">{currentUser.name.split(' ')[0]}</span>
+                </div>
+
+                <button
+                  onClick={onLogout}
+                  className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={onOpenAuth}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>Sign In / Demo Portal</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
