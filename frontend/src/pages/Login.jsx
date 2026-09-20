@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import { useAuth, DEMO_ACCOUNTS } from '../context/AuthContext';
-import { HeartHandshake, ShieldCheck, ArrowRight } from 'lucide-react';
+import { HeartHandshake, ShieldCheck, ArrowRight, Zap } from 'lucide-react';
 
 export default function Login({ onSwitchToRegister, onSuccess }) {
   const { login, demoLogin } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+    if (e) e.preventDefault();
     setLoading(true);
     try {
       await login(email, password);
       if (onSuccess) onSuccess();
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      await demoLogin('family_user');
+      if (onSuccess) onSuccess();
     } finally {
       setLoading(false);
     }
@@ -28,8 +27,6 @@ export default function Login({ onSwitchToRegister, onSuccess }) {
     try {
       await demoLogin(roleKey);
       if (onSuccess) onSuccess();
-    } catch (e) {
-      setError('Failed to login as demo user');
     } finally {
       setLoading(false);
     }
@@ -48,18 +45,26 @@ export default function Login({ onSwitchToRegister, onSuccess }) {
           <p className="text-xs text-slate-500 mt-1">
             "You may be far away. ApnoCare is there."
           </p>
+          <div className="mt-2 inline-block px-3 py-1 bg-emerald-50 text-emerald-700 text-[11px] font-semibold rounded-full border border-emerald-200">
+            ✨ Open Access Demo Mode • Enter Anything to Explore
+          </div>
         </div>
 
-        {error && (
-          <div className="p-3 bg-rose-50 text-rose-700 text-xs rounded-xl font-medium">
-            {error}
-          </div>
-        )}
+        {/* 1-Click Instant Enter */}
+        <button
+          type="button"
+          onClick={() => handleSubmit()}
+          disabled={loading}
+          className="w-full py-3.5 px-4 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white rounded-2xl font-bold text-sm shadow-lg shadow-teal-600/20 flex items-center justify-center space-x-2 transition transform hover:-translate-y-0.5"
+        >
+          <Zap className="w-4 h-4 text-amber-300 fill-amber-300" />
+          <span>{loading ? 'Entering...' : '⚡ Enter Directly (1-Click Access)'}</span>
+        </button>
 
         {/* Quick Demo Test Buttons */}
         <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-            One-Click Instant Demo Access:
+            Or Choose Role to Explore:
           </span>
           <div className="grid grid-cols-1 gap-1.5">
             <button
@@ -67,7 +72,7 @@ export default function Login({ onSwitchToRegister, onSuccess }) {
               onClick={() => handleQuickDemo('family_user')}
               className="w-full py-2 px-3 bg-white hover:bg-teal-50 border border-slate-200 text-slate-700 hover:text-teal-800 rounded-xl text-xs font-semibold flex items-center justify-between transition"
             >
-              <span>Family User (Remote in Toronto)</span>
+              <span>Family User (Abhishek - Toronto / Jalandhar)</span>
               <ArrowRight className="w-3.5 h-3.5 text-teal-600" />
             </button>
             <button
@@ -89,38 +94,36 @@ export default function Login({ onSwitchToRegister, onSuccess }) {
           </div>
         </div>
 
-        {/* Form */}
+        {/* Form - accepts literally anything */}
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Email Address</label>
+            <label className="block font-semibold text-slate-700 mb-1">Email or Username (Any text)</label>
             <input
-              type="email"
-              required
+              type="text"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="e.g. abhishek@apnocare.com"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500"
+              placeholder="e.g. abhishek, admin, rajesh, or your name"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-xs"
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Password</label>
+            <label className="block font-semibold text-slate-700 mb-1">Password (Any or leave blank)</label>
             <input
               type="password"
-              required
               value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500"
+              placeholder="•••••••• (optional)"
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-xs"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-md transition"
+            className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition text-xs"
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Entering Platform...' : 'Enter with Above Details'}
           </button>
         </form>
 

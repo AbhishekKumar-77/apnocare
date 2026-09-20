@@ -25,71 +25,131 @@ export const DEMO_ACCOUNTS = {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('apnocare_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState(false);
 
+  // Initialize: If no user is logged in, auto-login as family user so anyone who opens the link sees the project immediately!
   useEffect(() => {
-    const token = localStorage.getItem('apnocare_token');
-    const hasBackend = !!import.meta.env.VITE_API_URL;
-
-    if (token) {
-      api.getMe()
-        .then(userData => {
-          setUser(userData);
-        })
-        .catch(() => {
-          localStorage.removeItem('apnocare_token');
-          setUser(null);
-        })
-        .finally(() => setLoading(false));
-    } else if (hasBackend) {
-      // Only attempt demo login if a live backend URL is configured
-      demoLogin('family_user').finally(() => setLoading(false));
-    } else {
-      // No backend configured (static frontend deploy) — just show landing page
-      setLoading(false);
+    if (!user) {
+      demoLogin('family_user');
     }
   }, []);
 
-  const login = async (email, password) => {
-    const data = await api.login({ email, password });
-    localStorage.setItem('apnocare_token', data.token);
-    setUser(data.user);
-    return data.user;
+  // Login: No authorization blockers — ANY email or password (or empty) immediately enters!
+  const login = async (email = '', password = '') => {
+    setLoading(true);
+    try {
+      // Try real backend API first if available
+      const data = await api.login({ email, password });
+      if (data?.token && data?.user) {
+        localStorage.setItem('apnocare_token', data.token);
+        localStorage.setItem('apnocare_user', JSON.stringify(data.user));
+        setUser(data.user);
+        return data.user;
+      }
+    } catch (e) {
+      // Backend not running / offline — continue without authorization check
+    } finally {
+      setLoading(false);
+    }
+
+    // Bypass authorization: generate active session for whatever they entered
+    const cleanEmail = (email || 'abhishek@apnocare.com').trim().toLowerCase();
+    const isAdmin = cleanEmail.includes('admin');
+    const isRep = cleanEmail.includes('rep') || cleanEmail.includes('care') || cleanEmail.includes('rajesh');
+    const role = isAdmin ? 'admin' : isRep ? 'care_representative' : 'family_user';
+
+    const fallbackUser = {
+      _id: 'user_' + role,
+      id: 'user_' + role,
+      name: isAdmin ? 'ApnoCare Ops Admin' : isRep ? 'Rajesh Kumar (Care Associate)' : (cleanEmail.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Abhishek Sharma'),
+      email: cleanEmail.includes('@') ? cleanEmail : `${cleanEmail}@apnocare.com`,
+      role: role,
+      phone: isRep ? '+91 98722 34567' : '+1 (647) 555-0192',
+      location: isRep ? 'Model Town, Jalandhar' : 'Toronto, Canada (Family in Jalandhar, Punjab)'
+    };
+
+    localStorage.setItem('apnocare_token', 'mock_token_' + role);
+    localStorage.setItem('apnocare_user', JSON.stringify(fallbackUser));
+    setUser(fallbackUser);
+    return fallbackUser;
   };
 
+  // Instant demo login for any role
+  const demoLogin = async (roleKey = 'family_user') => {
+    const creds = DEMO_ACCOUNTS[roleKey] || DEMO_ACCOUNTS.family_user;
+    try {
+      const data = await api.login({ email: creds.email, password: creds.password });
+      if (data?.token && data?.user) {
+        localStorage.setItem('apnocare_token', data.token);
+        localStorage.setItem('apnocare_user', JSON.stringify(data.user));
+        setUser(data.user);
+        return data.user;
+      }
+    } catch (err) {}
+
+    const fallbackUser = {
+      _id: 'demo_' + roleKey,
+      id: 'demo_' + roleKey,
+      name: roleKey === 'admin' ? 'ApnoCare Ops Admin' : roleKey === 'care_representative' ? 'Rajesh Kumar' : 'Abhishek Sharma',
+      email: creds.email,
+      role: creds.role,
+      phone: creds.role === 'care_representative' ? '+91 98722 34567' : '+1 (647) 555-0192',
+      location: creds.role === 'care_representative' ? 'Model Town, Jalandhar' : 'Toronto, Canada (Family in Jalandhar, Punjab)'
+    };
+
+    localStorage.setItem('apnocare_token', 'demo_token_' + roleKey);
+    localStorage.setItem('apnocare_user', JSON.stringify(fallbackUser));
+    setUser(fallbackUser);
+    return fallbackUser;
+  };
+
+  // Register: Anyone can register and enter directly
   const register = async (formData) => {
-    const data = await api.register(formData);
-    localStorage.setItem('apnocare_token', data.token);
-    setUser(data.user);
-    return data.user;
+    try {
+      const data = await api.register(formData);
+      if (data?.token && data?.user) {
+        localStorage.setItem('apnocare_token', data.token);
+        localStorage.setItem('apnocare_user', JSON.stringify(data.user));
+        setUser(data.user);
+        return data.user;
+      }
+    } catch (err) {}
+
+    const registeredUser = {
+      _id: 'user_reg_' + Date.now(),
+      id: 'user_reg_' + Date.now(),
+      name: formData.name || 'ApnoCare Member',
+      email: formData.email || 'user@apnocare.com',
+      role: formData.role || 'family_user',
+      phone: formData.phone || '+91 98000 00000',
+      location: formData.location || 'Jalandhar, Punjab'
+    };
+
+    localStorage.setItem('apnocare_token', 'token_reg_' + Date.now());
+    localStorage.setItem('apnocare_user', JSON.stringify(registeredUser));
+    setUser(registeredUser);
+    return registeredUser;
   };
 
   const logout = () => {
     localStorage.removeItem('apnocare_token');
+    localStorage.removeItem('apnocare_user');
     setUser(null);
-  };
-
-  const demoLogin = async (roleKey) => {
-    const creds = DEMO_ACCOUNTS[roleKey];
-    if (!creds) return;
-    try {
-      const data = await api.login({ email: creds.email, password: creds.password });
-      localStorage.setItem('apnocare_token', data.token);
-      setUser(data.user);
-      return data.user;
-    } catch (err) {
-      console.error('Demo login error:', err);
-    }
   };
 
   const refreshUser = async () => {
     try {
       const u = await api.getMe();
-      setUser(u);
-    } catch (e) {
-      console.error(e);
-    }
+      if (u) setUser(u);
+    } catch (e) {}
   };
 
   return (

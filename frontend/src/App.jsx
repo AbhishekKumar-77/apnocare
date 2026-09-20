@@ -21,7 +21,7 @@ import Appointments from './pages/Appointments';
 import AdminDashboard from './pages/AdminDashboard';
 
 function MainApp() {
-  const { user, loading } = useAuth();
+  const { user, loading, demoLogin } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedPatientForBooking, setSelectedPatientForBooking] = useState(null);
   const [careWizardPatient, setCareWizardPatient] = useState(null);
@@ -69,7 +69,10 @@ function MainApp() {
     }
     return (
       <Landing 
-        onGetStarted={() => setActiveTab('login')} 
+        onGetStarted={() => {
+          demoLogin('family_user');
+          setActiveTab('dashboard');
+        }} 
         onLoginClick={() => setActiveTab('login')} 
       />
     );
