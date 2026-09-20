@@ -13,7 +13,8 @@ import {
   ArrowRight,
   Sparkles,
   PhoneCall,
-  CheckCircle2
+  CheckCircle2,
+  UserCheck
 } from 'lucide-react';
 
 export default function Landing({ onGetStarted, onLoginClick }) {
