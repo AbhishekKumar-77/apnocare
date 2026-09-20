@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL;
+const API_BASE = envUrl ? (envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl) : '/api';
 
 export async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('apnocare_token');
