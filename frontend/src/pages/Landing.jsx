@@ -14,7 +14,8 @@ import {
   Sparkles,
   PhoneCall,
   CheckCircle2,
-  UserCheck
+  UserCheck,
+  Building2
 } from 'lucide-react';
 
 export default function Landing({ onGetStarted, onLoginClick }) {
