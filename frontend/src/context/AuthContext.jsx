@@ -30,6 +30,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('apnocare_token');
+    const hasBackend = !!import.meta.env.VITE_API_URL;
+
     if (token) {
       api.getMe()
         .then(userData => {
@@ -40,9 +42,12 @@ export function AuthProvider({ children }) {
           setUser(null);
         })
         .finally(() => setLoading(false));
-    } else {
-      // Default to demo family user if not logged in for instant rich demo
+    } else if (hasBackend) {
+      // Only attempt demo login if a live backend URL is configured
       demoLogin('family_user').finally(() => setLoading(false));
+    } else {
+      // No backend configured (static frontend deploy) — just show landing page
+      setLoading(false);
     }
   }, []);
 
