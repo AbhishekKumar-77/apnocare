@@ -19,6 +19,7 @@ import Diagnostics from './pages/Diagnostics';
 import HealthRecords from './pages/HealthRecords';
 import Appointments from './pages/Appointments';
 import AdminDashboard from './pages/AdminDashboard';
+import InteractiveFlowBackground from './components/InteractiveFlowBackground';
 
 function MainApp() {
   const { user, loading, demoLogin } = useAuth();
@@ -29,10 +30,11 @@ function MainApp() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-500">
-        <div className="flex flex-col items-center space-y-3">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-500 relative">
+        <InteractiveFlowBackground />
+        <div className="flex flex-col items-center space-y-3 z-10 glass-card p-8 rounded-3xl border border-slate-200/80 shadow-lg">
           <div className="w-10 h-10 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-xs font-semibold tracking-wider uppercase text-teal-800">Loading ApnoCare...</span>
+          <span className="text-xs font-bold tracking-wider uppercase text-teal-800 font-heading">Loading ApnoCare...</span>
         </div>
       </div>
     );
@@ -62,19 +64,38 @@ function MainApp() {
   // If not logged in and on auth or landing
   if (!user) {
     if (activeTab === 'register') {
-      return <Register onSwitchToLogin={() => setActiveTab('login')} onSuccess={() => setActiveTab('dashboard')} />;
+      return (
+        <div className="min-h-screen relative">
+          <InteractiveFlowBackground />
+          <div className="relative z-10">
+            <Register onSwitchToLogin={() => setActiveTab('login')} onSuccess={() => setActiveTab('dashboard')} />
+          </div>
+        </div>
+      );
     }
     if (activeTab === 'login') {
-      return <Login onSwitchToRegister={() => setActiveTab('register')} onSuccess={() => setActiveTab('dashboard')} />;
+      return (
+        <div className="min-h-screen relative">
+          <InteractiveFlowBackground />
+          <div className="relative z-10">
+            <Login onSwitchToRegister={() => setActiveTab('register')} onSuccess={() => setActiveTab('dashboard')} />
+          </div>
+        </div>
+      );
     }
     return (
-      <Landing 
-        onGetStarted={() => {
-          demoLogin('family_user');
-          setActiveTab('dashboard');
-        }} 
-        onLoginClick={() => setActiveTab('login')} 
-      />
+      <div className="min-h-screen relative flex flex-col">
+        <InteractiveFlowBackground />
+        <div className="relative z-10 flex-1 flex flex-col">
+          <Landing 
+            onGetStarted={() => {
+              demoLogin('family_user');
+              setActiveTab('dashboard');
+            }} 
+            onLoginClick={() => setActiveTab('login')} 
+          />
+        </div>
+      </div>
     );
   }
 
@@ -91,13 +112,15 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen relative flex flex-col font-sans">
+      {/* Background Interactive Flow Canvas */}
+      <InteractiveFlowBackground />
       
       {/* Top Navigation */}
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 relative z-10">
         {activeTab === 'dashboard' && (
           <Dashboard 
             setActiveTab={setActiveTab} 

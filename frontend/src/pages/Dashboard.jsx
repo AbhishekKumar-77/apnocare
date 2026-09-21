@@ -15,7 +15,9 @@ import {
   ChevronRight, 
   FileText,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Sparkles,
+  ShieldCheck
 } from 'lucide-react';
 
 export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPatientForDoctor }) {
@@ -61,23 +63,25 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
     <div className="space-y-8 pb-16">
       
       {/* Personalized Greeting Header */}
-      <div className="bg-gradient-to-r from-teal-800 via-teal-700 to-teal-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-900 via-teal-800 to-slate-900 rounded-3xl p-6 sm:p-9 text-white shadow-xl relative overflow-hidden border border-teal-700/40">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-2xl">
-          <span className="px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-semibold backdrop-blur-md">
-            📍 Family based in Jalandhar, Punjab • Remote Care Connected
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold mt-3">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 text-teal-100 text-xs font-semibold backdrop-blur-md border border-white/15">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>📍 Family location: Jalandhar, Punjab • Remote Care Connected</span>
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-extrabold mt-3.5 font-heading tracking-tight">
             Good day, {userName}
           </h1>
-          <p className="text-sm text-teal-100 mt-1 font-normal leading-relaxed">
+          <p className="text-sm sm:text-base text-teal-100/90 mt-1.5 font-normal leading-relaxed">
             How can we support your family's health and medical visits today?
           </p>
 
-          {/* Quick Action Pills */}
-          <div className="mt-6 flex flex-wrap gap-2.5">
+          {/* Quick Action Buttons */}
+          <div className="mt-7 flex flex-wrap gap-2.5">
             <button
               onClick={() => onOpenCareWizard ? onOpenCareWizard() : setActiveTab('care')}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-900 rounded-xl text-xs font-bold shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5"
+              className="flex items-center space-x-2 px-4 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 rounded-xl text-xs font-bold shadow-lg shadow-amber-400/20 transition transform hover:-translate-y-0.5 cursor-pointer"
             >
               <HeartHandshake className="w-4 h-4 text-slate-950" />
               <span>Get Care Assistance</span>
@@ -85,7 +89,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
             <button
               onClick={() => setActiveTab('doctors')}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 transition"
+              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 backdrop-blur-md transition cursor-pointer"
             >
               <Stethoscope className="w-4 h-4 text-teal-200" />
               <span>Find Doctor</span>
@@ -93,7 +97,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
             <button
               onClick={() => setActiveTab('appointments')}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 transition"
+              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 backdrop-blur-md transition cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-teal-200" />
               <span>Book Appointment</span>
@@ -101,7 +105,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
             <button
               onClick={() => setActiveTab('medicines')}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 transition"
+              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 backdrop-blur-md transition cursor-pointer"
             >
               <Pill className="w-4 h-4 text-teal-200" />
               <span>Medicines</span>
@@ -109,7 +113,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
             <button
               onClick={() => setActiveTab('diagnostics')}
-              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 transition"
+              className="flex items-center space-x-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 backdrop-blur-md transition cursor-pointer"
             >
               <Activity className="w-4 h-4 text-teal-200" />
               <span>Diagnostic Test</span>
@@ -120,7 +124,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
       {/* Flagship Active Care Assistance Live Tracker Widget */}
       {activeCareRequest && (
-        <div className="bg-white rounded-3xl p-6 border-2 border-teal-500/30 shadow-md relative overflow-hidden">
+        <div className="glass-card rounded-3xl p-6 border-2 border-teal-500/40 shadow-md relative overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="flex items-center space-x-3">
               <div className="relative">
@@ -141,7 +145,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                     {activeCareRequest.status.replace(/_/g, ' ').toUpperCase()}
                   </span>
                 </div>
-                <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                <h3 className="text-base font-bold text-slate-900 mt-0.5 font-heading">
                   Accompanying {activeCareRequest.patient_name} ({activeCareRequest.patient_relation})
                 </h3>
               </div>
@@ -149,7 +153,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
 
             <button
               onClick={() => setActiveTab('care')}
-              className="inline-flex items-center space-x-1 px-4 py-2 bg-teal-50 hover:bg-teal-100 text-teal-700 rounded-xl text-xs font-bold transition self-start sm:self-auto"
+              className="inline-flex items-center space-x-1.5 px-4 py-2 bg-teal-50 hover:bg-teal-100 text-teal-800 rounded-xl text-xs font-bold transition self-start sm:self-auto cursor-pointer"
             >
               <span>View Live Stepper Timeline</span>
               <ChevronRight className="w-4 h-4" />
@@ -173,19 +177,19 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
         </div>
       )}
 
-      {/* Grid: My Family & Upcoming Appointments */}
+      {/* Grid: My Family Profiles & Health Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* My Family Members (2 cols on lg) */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">My Family Profiles</h2>
+              <h2 className="text-lg font-bold text-slate-900 font-heading">My Family Profiles</h2>
               <p className="text-xs text-slate-500">Book any healthcare service with their saved locations</p>
             </div>
             <button
               onClick={() => setActiveTab('family')}
-              className="flex items-center space-x-1 text-xs font-bold text-teal-700 hover:text-teal-800"
+              className="flex items-center space-x-1 text-xs font-bold text-teal-700 hover:text-teal-800 cursor-pointer"
             >
               <span>Manage Family</span>
               <ChevronRight className="w-4 h-4" />
@@ -196,7 +200,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
             {family.map(member => (
               <div 
                 key={member.id} 
-                className="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-xs hover:shadow-md transition relative group"
+                className="glass-card glass-card-hover rounded-3xl p-5 relative group"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3">
@@ -204,7 +208,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                       {member.name ? member.name[0] : 'F'}
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900">{member.name}</h4>
+                      <h4 className="font-bold text-sm text-slate-900 font-heading">{member.name}</h4>
                       <p className="text-xs text-teal-700 font-medium">{member.relation} • {member.age} yrs</p>
                     </div>
                   </div>
@@ -221,7 +225,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                   {member.chronic_conditions?.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-1">
                       {member.chronic_conditions.map((c, i) => (
-                        <span key={i} className="px-1.5 py-0.5 bg-amber-50 text-amber-800 text-[10px] rounded-md font-medium">
+                        <span key={i} className="px-2 py-0.5 bg-amber-50 text-amber-800 text-[10px] rounded-md font-medium border border-amber-200/60">
                           {c}
                         </span>
                       ))}
@@ -236,7 +240,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                       if (onSelectPatientForDoctor) onSelectPatientForDoctor(member);
                       setActiveTab('doctors');
                     }}
-                    className="text-[11px] font-bold text-teal-700 hover:text-teal-800"
+                    className="text-[11px] font-bold text-teal-700 hover:text-teal-800 cursor-pointer"
                   >
                     Find Doctor →
                   </button>
@@ -245,7 +249,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                       if (onOpenCareWizard) onOpenCareWizard(member);
                       else setActiveTab('care');
                     }}
-                    className="text-[11px] font-bold text-amber-700 hover:text-amber-800"
+                    className="text-[11px] font-bold text-amber-700 hover:text-amber-800 cursor-pointer"
                   >
                     Request Care →
                   </button>
@@ -256,9 +260,9 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
             {/* Add Member Card */}
             <div 
               onClick={() => setActiveTab('family')}
-              className="border-2 border-dashed border-slate-300 hover:border-teal-500 rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition bg-slate-50/50 hover:bg-teal-50/20 group min-h-[160px]"
+              className="glass-card hover:border-teal-400 rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all group min-h-[160px] border-dashed border-2 border-slate-300"
             >
-              <div className="w-10 h-10 rounded-2xl bg-white text-slate-400 group-hover:text-teal-600 flex items-center justify-center shadow-xs mb-2 transition">
+              <div className="w-10 h-10 rounded-2xl bg-teal-50 text-teal-600 group-hover:bg-teal-600 group-hover:text-white flex items-center justify-center shadow-xs mb-2 transition-colors">
                 <Plus className="w-5 h-5" />
               </div>
               <span className="text-xs font-bold text-slate-700 group-hover:text-teal-700">Add Another Family Member</span>
@@ -267,16 +271,16 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
           </div>
         </div>
 
-        {/* Upcoming Appointments & Health Activity (1 col on lg) */}
+        {/* Upcoming Consultations & Health Activity */}
         <div className="space-y-6">
           
-          {/* Upcoming Appointments */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs">
+          {/* Upcoming Consultations */}
+          <div className="glass-card rounded-3xl p-6 shadow-xs">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="font-bold text-sm text-slate-900">Upcoming Consultations</h3>
+              <h3 className="font-bold text-sm text-slate-900 font-heading">Upcoming Consultations</h3>
               <button 
                 onClick={() => setActiveTab('appointments')} 
-                className="text-[11px] font-bold text-teal-700"
+                className="text-[11px] font-bold text-teal-700 cursor-pointer hover:underline"
               >
                 View All
               </button>
@@ -289,23 +293,23 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                   <p>No upcoming appointments scheduled.</p>
                   <button
                     onClick={() => setActiveTab('doctors')}
-                    className="mt-2 text-xs font-bold text-teal-700 hover:underline"
+                    className="mt-2 text-xs font-bold text-teal-700 hover:underline cursor-pointer"
                   >
                     Book Doctor Now
                   </button>
                 </div>
               ) : (
                 upcomingAppointments.map(a => (
-                  <div key={a.id} className="p-3 bg-slate-50 rounded-2xl text-xs space-y-1">
+                  <div key={a.id} className="p-3.5 bg-slate-50/80 rounded-2xl text-xs space-y-1 border border-slate-100">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-slate-900">{a.doctor_name}</span>
-                      <span className="px-1.5 py-0.5 bg-teal-100 text-teal-800 text-[10px] font-semibold rounded">
+                      <span className="px-2 py-0.5 bg-teal-100 text-teal-800 text-[10px] font-bold rounded-full">
                         Confirmed
                       </span>
                     </div>
-                    <p className="text-[11px] text-teal-700">{a.doctor_specialty} • For {a.patient_name}</p>
-                    <p className="text-[11px] text-slate-400 flex items-center">
-                      <Clock className="w-3 h-3 mr-1" />
+                    <p className="text-[11px] text-teal-700 font-medium">{a.doctor_specialty} • For {a.patient_name}</p>
+                    <p className="text-[11px] text-slate-400 flex items-center mt-1">
+                      <Clock className="w-3.5 h-3.5 mr-1 text-slate-400" />
                       {a.appointment_date} at {a.appointment_time}
                     </p>
                   </div>
@@ -315,12 +319,12 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
           </div>
 
           {/* Recent Family Health Activity */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs">
+          <div className="glass-card rounded-3xl p-6 shadow-xs">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="font-bold text-sm text-slate-900">Recent Health Activity</h3>
+              <h3 className="font-bold text-sm text-slate-900 font-heading">Recent Health Activity</h3>
               <button 
                 onClick={() => setActiveTab('records')} 
-                className="text-[11px] font-bold text-teal-700"
+                className="text-[11px] font-bold text-teal-700 cursor-pointer hover:underline"
               >
                 Health Vault
               </button>
@@ -332,7 +336,7 @@ export default function Dashboard({ setActiveTab, onOpenCareWizard, onSelectPati
                   <div className="w-2 h-2 rounded-full bg-teal-500 mt-1.5 shrink-0"></div>
                   <div>
                     <h5 className="font-semibold text-slate-900">{t.title}</h5>
-                    <p className="text-[11px] text-slate-500">{t.description}</p>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">{t.description}</p>
                     <span className="text-[10px] text-slate-400 mt-0.5 block">{t.date}</span>
                   </div>
                 </div>

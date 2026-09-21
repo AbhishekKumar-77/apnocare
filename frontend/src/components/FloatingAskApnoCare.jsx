@@ -158,9 +158,12 @@ export default function FloatingAskApnoCare({ onTriggerAction }) {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            className="group flex items-center space-x-2.5 px-4 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-full shadow-2xl hover:shadow-teal-600/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
+            className="group relative flex items-center space-x-3 px-5 py-3.5 bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 hover:from-teal-800 hover:to-emerald-700 text-white rounded-full shadow-2xl hover:shadow-teal-600/40 border border-teal-400/30 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 cursor-pointer"
             title="Ask ApnoCare AI Assistant"
           >
+            {/* Ambient Pulse Ring */}
+            <span className="absolute -inset-1 rounded-full bg-teal-500/25 animate-pulse-ring -z-10 pointer-events-none"></span>
+            
             <div className="relative">
               <Bot className="w-6 h-6 animate-pulse" />
               <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
@@ -169,7 +172,7 @@ export default function FloatingAskApnoCare({ onTriggerAction }) {
               </span>
             </div>
             <div className="text-left hidden sm:block">
-              <span className="text-xs font-bold tracking-wide uppercase block">Ask ApnoCare</span>
+              <span className="text-xs font-bold tracking-wide uppercase block font-heading">Ask ApnoCare</span>
               <span className="text-[10px] text-teal-100 font-medium">AI Healthcare Navigator</span>
             </div>
           </button>
