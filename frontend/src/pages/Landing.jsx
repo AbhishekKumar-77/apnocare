@@ -65,29 +65,32 @@ export default function Landing({ onGetStarted, onLoginClick }) {
   return (
     <div className="relative text-slate-900 min-h-screen">
       
-      {/* Hero Section with Cinematic Background Video */}
-      <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden border-b border-slate-200/60">
-        {/* Background Video Layer */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover scale-105 filter brightness-105 contrast-105 opacity-65"
-          >
-            <source src={heroVideo} type="video/mp4" />
-          </video>
-          {/* Frosted Glass & Gradient Overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/75 to-[#f8fafc] backdrop-blur-[2px]" />
-          <div className="absolute inset-0 bg-teal-900/5 mix-blend-multiply" />
-        </div>
+      {/* Full-Page Fixed Cinematic Video Background */}
+      <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover scale-105 filter brightness-105 contrast-105 opacity-60"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        {/* Frosted Glass & Gradient Overlay across entire scrollable page */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/80 to-[#f8fafc]/90 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-teal-900/5 mix-blend-multiply" />
+      </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            
-            {/* Top Pill Announcement */}
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-teal-100/70 border border-teal-200/80 text-teal-800 text-xs font-bold mb-6 shadow-xs animate-float-subtle">
+      {/* Main Scrollable Content that rolls smoothly over the fixed background video */}
+      <div className="relative z-10">
+        
+        {/* Hero Section */}
+        <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden border-b border-slate-200/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto">
+              
+              {/* Top Pill Announcement */}
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/80 border border-teal-200/80 text-teal-800 text-xs font-bold mb-6 shadow-xs backdrop-blur-md animate-float-subtle">
               <Sparkles className="w-3.5 h-3.5 text-teal-600" />
               <span>Next-Gen Remote Family Healthcare & Physical Companionship</span>
             </div>
@@ -220,7 +223,7 @@ export default function Landing({ onGetStarted, onLoginClick }) {
       </section>
 
       {/* Interactive Ecosystem Explorer */}
-      <section className="py-20 lg:py-28 relative bg-gradient-to-b from-slate-50/50 via-teal-50/20 to-slate-50/50 border-y border-slate-200/70">
+      <section className="py-20 lg:py-28 relative border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-extrabold uppercase tracking-widest text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200/60">
@@ -423,6 +426,7 @@ export default function Landing({ onGetStarted, onLoginClick }) {
         </div>
       </footer>
 
+      </div>
     </div>
   );
 }
