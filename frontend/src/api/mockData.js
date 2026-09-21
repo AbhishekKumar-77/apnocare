@@ -47,6 +47,29 @@ export const initialFamily = [
     preferred_hospital: 'Tagore Hospital & Heart Care, Jalandhar',
     notes: 'Monitors fasting blood sugar weekly. Takes Metformin 500mg after dinner.',
     created_at: new Date(Date.now() - 25 * 86400000).toISOString()
+  },
+  {
+    _id: 'fam_grandma_88',
+    id: 'fam_grandma_88',
+    name: 'Surinder Kaur',
+    relation: 'Grandmother',
+    age: 88,
+    gender: 'Female',
+    phone: '+91 98140 77889',
+    location: 'House 142, Sector 2, Model Town, Jalandhar, Punjab',
+    city: 'Jalandhar',
+    preferred_language: 'Punjabi',
+    emergency_contact: {
+      name: 'Abhishek Sharma (Grandson in Toronto)',
+      phone: '+1 (647) 555-0192',
+      relation: 'Grandson'
+    },
+    blood_group: 'AB+',
+    chronic_conditions: ['Age-related Mobility Limitation', 'Mild Hearing Loss'],
+    allergies: ['Sulfa drugs'],
+    preferred_hospital: 'Tagore Hospital & Heart Care, Jalandhar',
+    notes: 'Requires wheelchair assistance during hospital visits. Speaks predominantly Punjabi.',
+    created_at: new Date(Date.now() - 15 * 86400000).toISOString()
   }
 ];
 
@@ -60,16 +83,22 @@ export const initialDoctors = [
     qualification: 'MBBS, MD (Internal Medicine), FACP',
     experience_years: 22,
     hospital_name: 'Tagore Hospital & Heart Care',
-    hospital_address: 'Banda Bahadur Nagar, Jalandhar',
+    hospital_address: 'Banda Bahadur Nagar, Mahavir Marg, Jalandhar',
     city: 'Jalandhar',
     rating: 4.9,
-    reviews_count: 340,
+    reviews_count: 342,
     consultation_fee: 800,
     available_today: true,
     available_slots: ['10:30 AM', '11:30 AM', '01:00 PM', '04:30 PM'],
     languages: ['Punjabi', 'Hindi', 'English'],
-    health_concerns: ['Blood Pressure', 'Diabetes', 'Fever', 'Routine Health Checkup', 'Geriatric Health'],
-    image_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80'
+    health_concerns: ['Blood Pressure', 'Diabetes', 'Fever', 'Routine Health Checkup', 'Geriatric Care'],
+    modes: ['In-Clinic OPD', 'Video Consultation', 'Home Visit'],
+    bio: 'Senior Consultant Physician with over two decades of dedicated medical service in Punjab. Specializes in managing chronic geriatric ailments, complex hypertension, and metabolic syndrome.',
+    image_url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80',
+    reviews: [
+      { author: 'Manpreet S.', relation: 'Son in UK', rating: 5, comment: 'Dr. Sharma examined my mother with immense patience. Explained the BP dosage clearly in Punjabi.', date: '2 days ago' },
+      { author: 'Gurjit K.', relation: 'Daughter in Canada', rating: 5, comment: 'Very reassuring and gentle approach with senior citizens.', date: '1 week ago' }
+    ]
   },
   {
     _id: 'doc_2',
@@ -77,19 +106,25 @@ export const initialDoctors = [
     name: 'Dr. Preeti Varma',
     email: 'dr.preeti@cityheart.com',
     specialty: 'Cardiologist',
-    qualification: 'MBBS, MD, DM (Cardiology)',
+    qualification: 'MBBS, MD, DM (Cardiology), FSCAI',
     experience_years: 18,
     hospital_name: 'City Heart & Vascular Institute',
-    hospital_address: 'Mall Road, Jalandhar',
+    hospital_address: 'Mall Road, Near BMC Chowk, Jalandhar',
     city: 'Jalandhar',
-    rating: 4.8,
+    rating: 4.85,
     reviews_count: 285,
     consultation_fee: 1200,
     available_today: true,
     available_slots: ['10:00 AM', '12:00 PM', '03:00 PM', '05:30 PM'],
     languages: ['Hindi', 'English', 'Punjabi'],
-    health_concerns: ['Chest Discomfort', 'Heart Palpitations', 'Hypertension', 'Post-Angioplasty Care'],
-    image_url: 'https://images.unsplash.com/photo-1594824813533-524021272714?w=200&auto=format&fit=crop&q=80'
+    health_concerns: ['Chest Discomfort', 'Heart Palpitations', 'Hypertension', 'Post-Angioplasty Care', 'ECG/Echo Review'],
+    modes: ['In-Clinic OPD', 'Video Consultation'],
+    bio: 'Premier Interventional Cardiologist. Pioneer in preventive heart health and post-operative cardiac rehabilitation programs for senior citizens.',
+    image_url: 'https://images.unsplash.com/photo-1594824813533-524021272714?w=200&auto=format&fit=crop&q=80',
+    reviews: [
+      { author: 'Harvinder P.', relation: 'Son in US', rating: 5, comment: 'Accurate diagnosis of cardiac rhythm anomaly. The hospital staff handled everything smoothly.', date: '3 days ago' },
+      { author: 'Sunita D.', relation: 'Patient in Jalandhar', rating: 4, comment: 'Very thorough checkup and echocardiogram review.', date: '2 weeks ago' }
+    ]
   },
   {
     _id: 'doc_3',
@@ -100,16 +135,21 @@ export const initialDoctors = [
     qualification: 'MBBS, MS (Ortho), MCh (Joint Replacement)',
     experience_years: 16,
     hospital_name: 'Apollo Clinic & Diagnostic Centre',
-    hospital_address: 'Model Town, Jalandhar',
+    hospital_address: 'Plot 18, Model Town Road, Jalandhar',
     city: 'Jalandhar',
-    rating: 4.75,
-    reviews_count: 210,
+    rating: 4.78,
+    reviews_count: 214,
     consultation_fee: 900,
     available_today: true,
     available_slots: ['11:00 AM', '01:30 PM', '04:00 PM'],
     languages: ['Punjabi', 'English'],
-    health_concerns: ['Knee Pain', 'Arthritis', 'Joint Stiffness', 'Fracture Care', 'Backache'],
-    image_url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&auto=format&fit=crop&q=80'
+    health_concerns: ['Knee Osteoarthritis', 'Joint Stiffness', 'Hip Pain', 'Fracture Care', 'Spine & Spondylitis'],
+    modes: ['In-Clinic OPD', 'Home Visit'],
+    bio: 'Specialist in minimally invasive joint care, geriatric mobility restoration, and knee cartilage preservation.',
+    image_url: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&auto=format&fit=crop&q=80',
+    reviews: [
+      { author: 'Sukhdeep S.', relation: 'Son in Brampton', rating: 5, comment: 'Dr. Mehra advised conservative physiotherapy for my father’s knee rather than rushing into surgery. Great integrity.', date: '5 days ago' }
+    ]
   },
   {
     _id: 'doc_4',
@@ -122,14 +162,44 @@ export const initialDoctors = [
     hospital_name: 'Sacred Heart Super-Speciality Hospital',
     hospital_address: 'Maqsudan, Jalandhar',
     city: 'Jalandhar',
-    rating: 4.9,
-    reviews_count: 195,
+    rating: 4.92,
+    reviews_count: 198,
     consultation_fee: 1100,
     available_today: true,
     available_slots: ['10:30 AM', '02:00 PM', '05:00 PM'],
     languages: ['Punjabi', 'Hindi', 'English'],
-    health_concerns: ['Migraine', 'Tremors', 'Nerve Pain', 'Memory Loss', 'Vertigo'],
-    image_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80'
+    health_concerns: ['Migraine', 'Tremors', 'Nerve Pain / Neuropathy', 'Memory Loss', 'Vertigo & Balance'],
+    modes: ['In-Clinic OPD', 'Video Consultation'],
+    bio: 'Expert in cognitive wellness, diabetic neuropathy management, and neuro-rehabilitation.',
+    image_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80',
+    reviews: [
+      { author: 'Rupinder K.', relation: 'Granddaughter', rating: 5, comment: 'Helped adjust grandmother’s Parkinson’s medication. Significant improvement in trembling.', date: '1 week ago' }
+    ]
+  },
+  {
+    _id: 'doc_5',
+    id: 'doc_5',
+    name: 'Dr. Jasleen Ahluwalia',
+    email: 'dr.jasleen@patel.com',
+    specialty: 'Diabetologist & Endocrinologist',
+    qualification: 'MBBS, MD, Fellowship in Diabetology (UK)',
+    experience_years: 15,
+    hospital_name: 'Patel Hospital & Cancer Institute',
+    hospital_address: 'Civil Lines, Near BMC Chowk, Jalandhar',
+    city: 'Jalandhar',
+    rating: 4.86,
+    reviews_count: 176,
+    consultation_fee: 850,
+    available_today: true,
+    available_slots: ['09:30 AM', '12:30 PM', '03:30 PM'],
+    languages: ['Punjabi', 'English', 'Hindi'],
+    health_concerns: ['Uncontrolled Sugar', 'HbA1c Reduction', 'Thyroid Imbalance', 'Diabetic Diet Planning'],
+    modes: ['In-Clinic OPD', 'Video Consultation'],
+    bio: 'Focuses on holistic glycemic control for elderly diabetic patients with customized nutrition guidelines suitable for Punjabi diets.',
+    image_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+    reviews: [
+      { author: 'Balwinder B.', relation: 'Son in Germany', rating: 5, comment: 'Brought my father’s HbA1c down from 9.2% to 6.8% safely.', date: '4 days ago' }
+    ]
   }
 ];
 
@@ -144,27 +214,63 @@ export const initialHospitals = [
     emergency_phone: '0181-2244225 (24/7 ER)',
     has_emergency_24_7: true,
     type: 'Multi-Super Speciality Hospital',
-    rating: 4.8,
-    departments: ['Emergency & Trauma Care', 'Cardiology & Heart Care', 'Internal Medicine', 'Dialysis', 'Intensive Care Unit (ICU)'],
-    services: ['24/7 Emergency Ambulance', 'Cath Lab', 'Digital Cardiac Monitors', 'In-house Pharmacy', 'NABL Accredited Lab'],
-    doctors_count: 42,
-    image_url: 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=400&auto=format&fit=crop&q=80'
+    rating: 4.85,
+    bed_count: 250,
+    icu_beds: 45,
+    nabh_accredited: true,
+    cashless_tpa: true,
+    departments: [
+      '24/7 Emergency & Trauma Unit',
+      'Cardiology & Cardiac Surgery',
+      'Internal Medicine & Geriatrics',
+      'Nephrology & 24/7 Dialysis',
+      'Intensive Care Unit (ICU & CCU)',
+      'Orthopedics & Joint Replacement'
+    ],
+    facilities: [
+      '24/7 Advanced Life Support Ambulance',
+      'In-House 24/7 Pharmacy',
+      'NABL Accredited Pathology Lab',
+      'Digital Cardiac Cath Lab & Echo',
+      'Dedicated Senior Citizen Fast-Track OPD Desk',
+      'Wheelchair Ramps & Electric Stretcher Service',
+      'All Major TPA Cashless Insurance Counter'
+    ],
+    doctors_count: 46,
+    image_url: 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=600&auto=format&fit=crop&q=80'
   },
   {
     _id: 'hosp_2',
     id: 'hosp_2',
-    name: 'Patel Hospital',
+    name: 'Patel Hospital & Cancer Institute',
     city: 'Jalandhar',
     address: 'Civil Lines, Near BMC Chowk, Jalandhar, Punjab 144001',
     phone: '0181-5241000',
     emergency_phone: '0181-5241011',
     has_emergency_24_7: true,
     type: 'Super Speciality & Cancer Institute',
-    rating: 4.7,
-    departments: ['Emergency Care', 'Oncology', 'Gastroenterology', 'General Surgery', 'Pulmonology'],
-    services: ['24/7 Emergency', 'Advanced ICU', 'Blood Bank', 'Pharmacy', 'Diagnostic Imaging'],
+    rating: 4.75,
+    bed_count: 220,
+    icu_beds: 38,
+    nabh_accredited: true,
+    cashless_tpa: true,
+    departments: [
+      'Emergency Care & Trauma',
+      'Medical & Surgical Oncology',
+      'Gastroenterology & Endoscopy',
+      'Pulmonology & Respiratory Care',
+      'General & Laparoscopic Surgery'
+    ],
+    facilities: [
+      '24/7 Emergency Wing',
+      'Licensed Blood Bank & Component Lab',
+      'Daycare Chemotherapy Lounge',
+      'Modern High-Resolution 128-Slice CT Scan',
+      'Cashless TPA Desk',
+      'Valet Parking & Patient Escort'
+    ],
     doctors_count: 38,
-    image_url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&auto=format&fit=crop&q=80'
+    image_url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&auto=format&fit=crop&q=80'
   },
   {
     _id: 'hosp_3',
@@ -175,12 +281,28 @@ export const initialHospitals = [
     phone: '0181-2460111',
     emergency_phone: '0181-2460112',
     has_emergency_24_7: false,
-    type: 'Daycare & Diagnostic Centre',
-    rating: 4.85,
-    departments: ['Pathology', 'Radiology', 'Orthopedics', 'Preventive Health', 'Consultation Chambers'],
-    services: ['Home Sample Collection', 'Echo & TMT', 'Digital X-Ray', 'Ultrasound', 'Vaccination Clinic'],
-    doctors_count: 18,
-    image_url: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&auto=format&fit=crop&q=80'
+    type: 'Daycare & Advanced Diagnostic Hub',
+    rating: 4.88,
+    bed_count: 25,
+    icu_beds: 4,
+    nabh_accredited: true,
+    cashless_tpa: false,
+    departments: [
+      'Preventive Health Checkups',
+      'Pathology & Biochemistry',
+      'Digital Radiology & Ultrasound',
+      'Orthopedics & Joint Clinic',
+      'Diabetic Foot Care & Wellness'
+    ],
+    facilities: [
+      'Home Sample Collection Wing',
+      'Digital X-Ray & 2D-Echocardiogram',
+      'Doctor Consultation Suites',
+      'Vaccination Centre for Seniors',
+      'Online Report Delivery within 4-6 Hours'
+    ],
+    doctors_count: 22,
+    image_url: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&auto=format&fit=crop&q=80'
   }
 ];
 
@@ -278,6 +400,14 @@ export const initialCareRequests = [
         uploaded_by: 'Rajesh Kumar (Care Associate)'
       }
     ],
+    clinical_summary: {
+      bp: '132/84 mmHg',
+      pulse: '74 bpm',
+      weight: '66 kg',
+      diagnosis: 'Essential Hypertension (Controlled), Mild Knee Arthralgia',
+      rx_medicines: 'Tab Telmisartan 40mg (1-0-0), Tab Shelcal 500mg (0-1-0)',
+      next_followup: 'After 3 months or if BP fluctuates'
+    },
     care_fee: 1200,
     created_at: new Date(Date.now() - 3.5 * 3600000).toISOString(),
     updated_at: new Date(Date.now() - 0.3 * 3600000).toISOString()
@@ -288,34 +418,43 @@ export const initialAppointments = [
   {
     _id: 'appt_1',
     id: 'appt_1',
+    appointment_code: 'APPT-8821',
+    token_number: 'OPD-28',
     doctor_id: 'doc_1',
     doctor_name: 'Dr. Rajiv Sharma',
     doctor_specialty: 'General Physician',
     hospital_name: 'Tagore Hospital & Heart Care',
-    hospital_address: 'Banda Bahadur Nagar, Jalandhar',
+    hospital_address: 'Banda Bahadur Nagar, Mahavir Marg, Jalandhar',
     patient_id: 'fam_mother_64',
-    patient_name: 'Jaswant Kaur (Mother)',
+    patient_name: 'Jaswant Kaur',
+    patient_relation: 'Mother',
     appointment_date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
     appointment_time: '10:30 AM',
+    consultation_mode: 'In-Clinic OPD',
     reason: 'Follow-up on Blood Pressure & Medicine Refill',
     status: 'confirmed',
     accompanied_by_rep: true,
     representative_name: 'Rajesh Kumar',
+    representative_phone: '+91 98722 34567',
     consultation_fee: 800,
     created_at: new Date(Date.now() - 86400000).toISOString()
   },
   {
     _id: 'appt_2',
     id: 'appt_2',
+    appointment_code: 'APPT-9340',
+    token_number: 'OPD-14',
     doctor_id: 'doc_2',
     doctor_name: 'Dr. Preeti Varma',
     doctor_specialty: 'Cardiologist',
     hospital_name: 'City Heart & Vascular Institute',
-    hospital_address: 'Mall Road, Jalandhar',
+    hospital_address: 'Mall Road, Near BMC Chowk, Jalandhar',
     patient_id: 'fam_father_68',
-    patient_name: 'Harbhajan Singh (Father)',
+    patient_name: 'Harbhajan Singh',
+    patient_relation: 'Father',
     appointment_date: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0],
     appointment_time: '11:15 AM',
+    consultation_mode: 'In-Clinic OPD',
     reason: 'Routine ECG & Cardiovascular Wellness Evaluation',
     status: 'confirmed',
     accompanied_by_rep: false,
@@ -342,7 +481,7 @@ export const initialTimeline = [
     patient_name: 'Jaswant Kaur',
     title: 'Dr. Rajiv Sharma OPD Consultation',
     category: 'doctor_visit',
-    description: 'General Physician checkup completed at Tagore Hospital. Medicines renewed.',
+    description: 'General Physician checkup completed at Tagore Hospital. Prescription renewed.',
     date: 'Today, 11:10 AM',
     timestamp: new Date().toISOString(),
     recorded_by: 'Rajesh Kumar (Care Associate)'
@@ -383,7 +522,9 @@ export const initialHealthRecords = [
     hospital_name: 'Tagore Hospital & Heart Care',
     date: new Date().toISOString().split('T')[0],
     file_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80',
-    notes: 'Advised continuing Telmisartan 40mg once daily after breakfast. Avoid excessive sodium.',
+    notes: 'Advised continuing Telmisartan 40mg once daily after breakfast. Restrict sodium to under 2g/day. Hydration advised.',
+    diagnosis: 'Hypertension Stage 1 (Controlled)',
+    medicines: ['Telmisartan 40mg (Morning)', 'Shelcal 500mg (Noon)'],
     created_at: new Date().toISOString()
   },
   {
@@ -397,7 +538,9 @@ export const initialHealthRecords = [
     hospital_name: 'Apollo Diagnostic Centre, Model Town',
     date: new Date(Date.now() - 12 * 86400000).toISOString().split('T')[0],
     file_url: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&auto=format&fit=crop&q=80',
-    notes: 'Hemoglobin 12.8 g/dL (Normal). Fasting Blood Sugar 98 mg/dL (Normal). HbA1c 5.6% (Normal).',
+    notes: 'Hemoglobin 12.8 g/dL (Normal). Fasting Blood Sugar 98 mg/dL (Normal). HbA1c 5.6% (Normal). Serum Creatinine 0.9 mg/dL.',
+    diagnosis: 'Routine Metabolic Panel - All Clear',
+    medicines: [],
     created_at: new Date(Date.now() - 12 * 86400000).toISOString()
   },
   {
@@ -411,19 +554,237 @@ export const initialHealthRecords = [
     hospital_name: 'Lal PathLabs Jalandhar Cantt',
     date: new Date(Date.now() - 20 * 86400000).toISOString().split('T')[0],
     file_url: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&auto=format&fit=crop&q=80',
-    notes: 'Total Cholesterol 185 mg/dL. Triglycerides within acceptable limits.',
+    notes: 'Total Cholesterol 185 mg/dL. Triglycerides within acceptable limits. LDL 102 mg/dL. Advised regular evening walks.',
+    diagnosis: 'Borderline Hyperlipidemia',
+    medicines: ['Atorvastatin 10mg'],
     created_at: new Date(Date.now() - 20 * 86400000).toISOString()
   }
 ];
 
+export const initialVitals = [
+  { id: 'v1', family_member_id: 'fam_mother_64', patient_name: 'Jaswant Kaur', type: 'BP', value: '132/84', pulse: 74, status: 'Normal', date: 'Today, 11:45 AM', notes: 'Recorded at Tagore Hospital by Care Associate' },
+  { id: 'v2', family_member_id: 'fam_mother_64', patient_name: 'Jaswant Kaur', type: 'BP', value: '138/88', pulse: 78, status: 'Pre-Hypertension', date: '4 days ago', notes: 'Home digital monitor reading' },
+  { id: 'v3', family_member_id: 'fam_mother_64', patient_name: 'Jaswant Kaur', type: 'BP', value: '130/82', pulse: 72, status: 'Normal', date: '10 days ago', notes: 'Morning resting reading' },
+  { id: 'v4', family_member_id: 'fam_father_68', patient_name: 'Harbhajan Singh', type: 'Blood Sugar', value: '114 mg/dL', subType: 'Fasting', status: 'Normal', date: '3 days ago', notes: 'Fasting glucose before breakfast' },
+  { id: 'v5', family_member_id: 'fam_father_68', patient_name: 'Harbhajan Singh', type: 'Blood Sugar', value: '142 mg/dL', subType: 'Post-Meal (PP)', status: 'Optimal', date: '3 days ago', notes: '2 hours after lunch' },
+  { id: 'v6', family_member_id: 'fam_father_68', patient_name: 'Harbhajan Singh', type: 'HbA1c', value: '6.4%', status: 'Well-Controlled', date: '2 weeks ago', notes: 'Apollo Lab quarterly test' }
+];
+
 export const initialDiagnostics = [
-  { _id: 'd1', id: 'd1', test_name: 'Complete Blood Count (CBC)', category: 'Routine Pathology', price: 350, fasting_required: false, sample_type: 'Blood', tat: '6 Hours', description: 'Checks red & white blood cells, platelets, and general infection signs.' },
-  { _id: 'd2', id: 'd2', test_name: 'HbA1c (Glycated Hemoglobin)', category: 'Diabetes Care', price: 450, fasting_required: false, sample_type: 'Blood', tat: '6 Hours', description: 'Measures 3-month average blood glucose level for diabetes control.' },
-  { _id: 'd3', id: 'd3', test_name: 'Lipid Profile (Full Cholesterol)', category: 'Cardiac Health', price: 750, fasting_required: true, sample_type: 'Blood', tat: '8 Hours', description: 'Total cholesterol, HDL, LDL, VLDL, and triglycerides.' },
-  { _id: 'd4', id: 'd4', test_name: 'Thyroid Profile Total (T3, T4, TSH)', category: 'Endocrine Health', price: 550, fasting_required: true, sample_type: 'Blood', tat: '12 Hours', description: 'Evaluates thyroid gland activity and metabolic balance.' },
-  { _id: 'd5', id: 'd5', test_name: 'Kidney Function Test (KFT / RFT)', category: 'Organ Profile', price: 700, fasting_required: false, sample_type: 'Blood', tat: '8 Hours', description: 'Creatinine, Urea, Uric Acid, and electrolyte balance.' },
-  { _id: 'd6', id: 'd6', test_name: 'Liver Function Test (LFT)', category: 'Organ Profile', price: 800, fasting_required: true, sample_type: 'Blood', tat: '8 Hours', description: 'SGOT, SGPT, Bilirubin, and protein levels.' },
-  { _id: 'd7', id: 'd7', test_name: 'Digital Chest X-Ray (PA View)', category: 'Radiology', price: 450, fasting_required: false, sample_type: 'In-clinic', tat: 'Instant', description: 'Lungs, heart size, and chest cavity imaging.' }
+  {
+    _id: 'd1',
+    id: 'd1',
+    test_name: 'Complete Blood Count (CBC) with ESR',
+    category: 'Routine Pathology',
+    price: 350,
+    fasting_required: false,
+    sample_type: 'Blood Sample',
+    tat: '6 Hours',
+    popular: true,
+    parameters_count: 24,
+    description: 'Checks red & white blood cells, platelets, hemoglobin, and general systemic infection or anemia signs.',
+    parameters: ['Hemoglobin (Hb)', 'Total Leucocyte Count (TLC)', 'Platelet Count', 'Neutrophils', 'Lymphocytes', 'ESR (Erythrocyte Sedimentation Rate)'],
+    preparation: 'No special fasting required. Can be conducted at any time of the day.'
+  },
+  {
+    _id: 'd2',
+    id: 'd2',
+    test_name: 'HbA1c (Glycated 3-Month Glucose)',
+    category: 'Diabetes Care',
+    price: 450,
+    fasting_required: false,
+    sample_type: 'Blood Sample',
+    tat: '6 Hours',
+    popular: true,
+    parameters_count: 3,
+    description: 'Gold-standard test measuring 3-month average blood glucose level for diabetes control and medication efficacy.',
+    parameters: ['HbA1c Percentage', 'Estimated Average Glucose (eAG)', 'Total Glycated Hemoglobin'],
+    preparation: 'No fasting necessary. Continue routine prescribed diabetes medications.'
+  },
+  {
+    _id: 'd3',
+    id: 'd3',
+    test_name: 'Lipid Profile (Full Cardiovascular Cholesterol)',
+    category: 'Cardiac Health',
+    price: 750,
+    fasting_required: true,
+    sample_type: 'Blood Sample',
+    tat: '8 Hours',
+    popular: true,
+    parameters_count: 8,
+    description: 'Measures Total Cholesterol, Good HDL, Bad LDL, VLDL, and Triglycerides to evaluate cardiovascular plaque risk.',
+    parameters: ['Total Cholesterol', 'HDL Good Cholesterol', 'LDL Bad Cholesterol', 'Triglycerides', 'VLDL Cholesterol', 'Cholesterol/HDL Ratio'],
+    preparation: 'Strict 10-12 hours overnight fasting required. Plain drinking water is permitted.'
+  },
+  {
+    _id: 'd4',
+    id: 'd4',
+    test_name: 'Senior Citizen Complete Wellness Package',
+    category: 'Full Body Packages',
+    price: 1999,
+    original_price: 3800,
+    fasting_required: true,
+    sample_type: 'Blood & Urine',
+    tat: '12 Hours',
+    popular: true,
+    parameters_count: 62,
+    description: 'Specially designed for parents & seniors: covers Complete Blood Count, HbA1c, Full Lipid, Liver (LFT), Kidney (KFT), Thyroid (TSH), Vitamin D3 & B12, and Urine Routine.',
+    parameters: ['CBC (24 parameters)', 'HbA1c & Fasting Glucose', 'Lipid Profile (8 parameters)', 'Kidney Profile (KFT)', 'Liver Function (LFT)', 'Thyroid TSH', 'Vitamin D3 & B12'],
+    preparation: '10-12 hours overnight fasting required. Phlebotomist visits home at 07:30 AM or 08:30 AM.'
+  },
+  {
+    _id: 'd5',
+    id: 'd5',
+    test_name: 'Kidney Function Test (KFT / RFT with Electrolytes)',
+    category: 'Organ Profiles',
+    price: 700,
+    fasting_required: false,
+    sample_type: 'Blood Sample',
+    tat: '8 Hours',
+    popular: false,
+    parameters_count: 9,
+    description: 'Checks blood urea nitrogen, serum creatinine, uric acid, and critical electrolytes (Sodium, Potassium, Chloride).',
+    parameters: ['Serum Creatinine', 'Blood Urea Nitrogen (BUN)', 'Uric Acid', 'Serum Sodium', 'Serum Potassium', 'BUN/Creatinine Ratio'],
+    preparation: 'Hydrate well with plain water before sample collection.'
+  },
+  {
+    _id: 'd6',
+    id: 'd6',
+    test_name: 'Liver Function Test (LFT)',
+    category: 'Organ Profiles',
+    price: 800,
+    fasting_required: true,
+    sample_type: 'Blood Sample',
+    tat: '8 Hours',
+    popular: false,
+    parameters_count: 11,
+    description: 'Evaluates liver enzymes (SGOT, SGPT, Alkaline Phosphatase), Bilirubin levels, and total serum proteins.',
+    parameters: ['SGPT (ALT)', 'SGOT (AST)', 'Bilirubin Total & Direct', 'Alkaline Phosphatase', 'Serum Albumin', 'A/G Ratio'],
+    preparation: '8 hours fasting recommended. Avoid heavy evening meals prior to test.'
+  },
+  {
+    _id: 'd7',
+    id: 'd7',
+    test_name: 'Thyroid Profile Total (T3, T4, Ultra TSH)',
+    category: 'Endocrine Health',
+    price: 550,
+    fasting_required: true,
+    sample_type: 'Blood Sample',
+    tat: '10 Hours',
+    popular: false,
+    parameters_count: 3,
+    description: 'Evaluates thyroid gland activity and metabolic hormone balance.',
+    parameters: ['Total Triiodothyronine (T3)', 'Total Thyroxine (T4)', 'Thyroid Stimulating Hormone (TSH)'],
+    preparation: 'Morning sample preferred before taking daily morning thyroid medication.'
+  }
+];
+
+export const initialPharmacyCatalog = [
+  {
+    id: 'rx_1',
+    name: 'Telmisartan 40mg (Telma 40)',
+    brand: 'Glenmark Pharmaceuticals',
+    category: 'Chronic - Blood Pressure',
+    salt: 'Telmisartan 40mg',
+    strip_size: 'Strip of 30 Tablets',
+    price: 180,
+    mrp: 220,
+    requires_rx: true,
+    dosage: '1 tablet daily in the morning',
+    indications: 'Essential hypertension, cardiovascular risk reduction',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_2',
+    name: 'Metformin 500mg SR (Glycomet 500 SR)',
+    brand: 'USV Ltd',
+    category: 'Chronic - Diabetes',
+    salt: 'Metformin Hydrochloride (Sustained Release) 500mg',
+    strip_size: 'Strip of 20 Tablets',
+    price: 65,
+    mrp: 85,
+    requires_rx: true,
+    dosage: '1 tablet after dinner',
+    indications: 'Type 2 Diabetes Mellitus glycemic control',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_3',
+    name: 'Atorvastatin 10mg (Atorva 10)',
+    brand: 'Zydus Cadila',
+    category: 'Chronic - Heart & Cholesterol',
+    salt: 'Atorvastatin Calcium 10mg',
+    strip_size: 'Strip of 15 Tablets',
+    price: 110,
+    mrp: 145,
+    requires_rx: true,
+    dosage: '1 tablet at bedtime',
+    indications: 'High cholesterol, prevention of atherosclerotic cardiovascular events',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_4',
+    name: 'Shelcal 500 (Calcium + Vitamin D3)',
+    brand: 'Torrent Pharmaceuticals',
+    category: 'Joints & Bone Health',
+    salt: 'Calcium 500mg + Vitamin D3 250 IU',
+    strip_size: 'Bottle of 60 Tablets',
+    price: 240,
+    mrp: 290,
+    requires_rx: false,
+    dosage: '1 tablet daily after breakfast',
+    indications: 'Osteopenia, osteoporosis, calcium deficiency in elderly',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_5',
+    name: 'Becadexamin Multivitamin & Minerals',
+    brand: 'GlaxoSmithKline (GSK)',
+    category: 'Daily Wellness & Immunity',
+    salt: 'Multivitamins, Minerals and Trace Elements',
+    strip_size: 'Bottle of 30 Softgels',
+    price: 95,
+    mrp: 120,
+    requires_rx: false,
+    dosage: '1 capsule daily after lunch',
+    indications: 'Nutritional immunity support, lethargy, convalescence',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_6',
+    name: 'Omron HEM-7120 Digital BP Monitor',
+    brand: 'Omron Healthcare',
+    category: 'Medical Devices & Monitors',
+    salt: 'Automatic Digital Upper Arm Blood Pressure Monitor',
+    strip_size: 'Device with Standard Cuff & 3-Yr Warranty',
+    price: 1950,
+    mrp: 2490,
+    requires_rx: false,
+    dosage: 'One-touch automatic reading',
+    indications: 'Accurate home monitoring of blood pressure and pulse for parents',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&auto=format&fit=crop&q=80'
+  },
+  {
+    id: 'rx_7',
+    name: 'Accu-Chek Active 50 Test Strips',
+    brand: 'Roche Diabetes Care',
+    category: 'Medical Devices & Monitors',
+    salt: 'Blood Glucose Test Strips for Accu-Chek Active',
+    strip_size: 'Box of 50 Strips',
+    price: 920,
+    mrp: 1049,
+    requires_rx: false,
+    dosage: 'Use with Accu-Chek glucometer',
+    indications: 'Self-monitoring of blood glucose level',
+    in_stock: true,
+    image_url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=200&auto=format&fit=crop&q=80'
+  }
 ];
 
 export const initialMedicines = [
@@ -432,20 +793,25 @@ export const initialMedicines = [
     id: 'med_1',
     patient_name: 'Jaswant Kaur',
     order_code: 'MED-5541',
+    delivery_rider: 'Kewal Singh (+91 98765 43210)',
     items: [
-      { name: 'Telmisartan 40mg (Telma)', qty: 30, price: 180 },
-      { name: 'Calcium + Vitamin D3 500mg (Shelcal)', qty: 30, price: 125 }
+      { name: 'Telmisartan 40mg (Telma 40)', qty: 30, price: 180 },
+      { name: 'Shelcal 500 (Calcium + D3)', qty: 30, price: 125 }
     ],
     total_amount: 305,
     status: 'delivered',
     delivery_address: 'House 142, Sector 2, Model Town, Jalandhar',
-    ordered_at: new Date(Date.now() - 5 * 86400000).toISOString()
+    ordered_at: new Date(Date.now() - 5 * 86400000).toISOString(),
+    delivered_at: new Date(Date.now() - 4 * 86400000).toISOString(),
+    is_recurring: true,
+    next_refill_date: new Date(Date.now() + 25 * 86400000).toISOString().split('T')[0]
   },
   {
     _id: 'med_2',
     id: 'med_2',
     patient_name: 'Harbhajan Singh',
     order_code: 'MED-5589',
+    delivery_rider: 'Baljeet Singh (+91 98111 22334)',
     items: [
       { name: 'Metformin 500mg SR (Glycomet)', qty: 60, price: 140 },
       { name: 'Atorvastatin 10mg (Atorva)', qty: 30, price: 195 }
@@ -453,7 +819,10 @@ export const initialMedicines = [
     total_amount: 335,
     status: 'in_transit',
     delivery_address: 'House 142, Sector 2, Model Town, Jalandhar',
-    ordered_at: new Date(Date.now() - 86400000).toISOString()
+    ordered_at: new Date(Date.now() - 86400000).toISOString(),
+    estimated_delivery: 'Today, by 05:00 PM',
+    is_recurring: true,
+    next_refill_date: new Date(Date.now() + 29 * 86400000).toISOString().split('T')[0]
   }
 ];
 

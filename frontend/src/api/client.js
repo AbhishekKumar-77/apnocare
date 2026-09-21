@@ -8,6 +8,8 @@ import {
   initialHealthRecords,
   initialDiagnostics,
   initialMedicines,
+  initialPharmacyCatalog,
+  initialVitals,
   initialNotifications,
   initialAdminStats,
   initialAdminReps
@@ -301,6 +303,42 @@ export const api = {
     );
   },
 
+  rescheduleAppointment: async (id, newDate, newSlot) => {
+    return withFallback(
+      () => apiRequest(`/appointments/${id}/`, { method: 'PUT', body: JSON.stringify({ action: 'reschedule', appointment_date: newDate, appointment_time: newSlot }) }),
+      () => {
+        const list = getLocalStore('appointments', initialAppointments);
+        const idx = list.findIndex(a => a.id === id || a._id === id);
+        if (idx !== -1) {
+          list[idx].appointment_date = newDate;
+          list[idx].appointment_time = newSlot;
+          list[idx].status = 'confirmed';
+          setLocalStore('appointments', list);
+          return list[idx];
+        }
+        return { success: true };
+      }
+    );
+  },
+
+  attachCareAssociateToAppointment: async (id) => {
+    return withFallback(
+      () => apiRequest(`/appointments/${id}/`, { method: 'PUT', body: JSON.stringify({ action: 'attach_companion' }) }),
+      () => {
+        const list = getLocalStore('appointments', initialAppointments);
+        const idx = list.findIndex(a => a.id === id || a._id === id);
+        if (idx !== -1) {
+          list[idx].accompanied_by_rep = true;
+          list[idx].representative_name = 'Rajesh Kumar';
+          list[idx].representative_phone = '+91 98722 34567';
+          setLocalStore('appointments', list);
+          return list[idx];
+        }
+        return { success: true };
+      }
+    );
+  },
+
   // Care Requests (Flagship)
   getCareRequests: async () => {
     return withFallback(
@@ -408,6 +446,13 @@ export const api = {
   },
 
   // Medicines
+  getPharmacyCatalog: async () => {
+    return withFallback(
+      () => apiRequest('/medicines/catalog/'),
+      () => initialPharmacyCatalog
+    );
+  },
+
   getMedicineOrders: async () => {
     return withFallback(
       () => apiRequest('/medicines/'),
@@ -510,6 +555,37 @@ export const api = {
     return withFallback(
       () => apiRequest(`/health-records/timeline/${params ? `?${params}` : ''}`),
       () => initialTimeline
+    );
+  },
+
+  // Vitals Tracker
+  getVitals: async (memberId = null) => {
+    return withFallback(
+      () => apiRequest(`/health-records/vitals/${memberId ? `?family_member_id=${memberId}` : ''}`),
+      () => {
+        const list = getLocalStore('vitals', initialVitals);
+        if (memberId && memberId !== 'all') {
+          return list.filter(v => v.family_member_id === memberId);
+        }
+        return list;
+      }
+    );
+  },
+
+  addVitalLog: async (vitalData) => {
+    return withFallback(
+      () => apiRequest('/health-records/vitals/', { method: 'POST', body: JSON.stringify(vitalData) }),
+      () => {
+        const list = getLocalStore('vitals', initialVitals);
+        const newVital = {
+          id: 'v_' + Date.now(),
+          date: 'Just now',
+          ...vitalData
+        };
+        list.unshift(newVital);
+        setLocalStore('vitals', list);
+        return newVital;
+      }
     );
   },
 

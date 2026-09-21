@@ -154,7 +154,12 @@ function MainApp() {
         )}
 
         {activeTab === 'hospitals' && (
-          <FindHospital onOpenCareWizard={handleOpenCareWizard} />
+          <FindHospital 
+            onOpenCareWizard={handleOpenCareWizard} 
+            onSelectDoctor={(doc) => {
+              setActiveTab('doctors');
+            }}
+          />
         )}
 
         {activeTab === 'medicines' && <Medicines />}
