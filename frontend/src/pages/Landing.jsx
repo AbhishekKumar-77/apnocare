@@ -22,6 +22,7 @@ import {
   Heart,
   Calendar
 } from 'lucide-react';
+import heroVideo from '../assets/115458-704757070.mp4';
 
 export default function Landing({ onGetStarted, onLoginClick }) {
   const [activeFeatureTab, setActiveFeatureTab] = useState(0);
@@ -64,8 +65,24 @@ export default function Landing({ onGetStarted, onLoginClick }) {
   return (
     <div className="relative text-slate-900 min-h-screen">
       
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden">
+      {/* Hero Section with Cinematic Background Video */}
+      <section className="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden border-b border-slate-200/60">
+        {/* Background Video Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover scale-105 filter brightness-105 contrast-105 opacity-65"
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+          {/* Frosted Glass & Gradient Overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/75 to-[#f8fafc] backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-teal-900/5 mix-blend-multiply" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             
